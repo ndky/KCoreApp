@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TeduCoreApp.Data.Enums;
 using TeduCoreApp.Data.Interfaces;
 using TeduCoreApp.Infrastructure.SharedKernel;
 
 namespace TeduCoreApp.Data.Entities
 {
+    [Table("ProductCategories")]
     public class ProductCategory : DomainEntity<int>, IHasSeoMetaData, ISwitchable, ISortable, IDateTracking
     {
+        public ProductCategory()
+        {
+            Products = new List<Product>();
+        }
+
         public string Name { get; set; }
         public string Description { get; set; }
         public int? ParentId { get; set; }
@@ -23,5 +28,7 @@ namespace TeduCoreApp.Data.Entities
         public string SeoAlias { get; set; }
         public string SeoKeyWords { get; set; }
         public string SeoDescription { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
